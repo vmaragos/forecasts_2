@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 interface ForecastRepositoryInterface
 {
-    public function dump();
-
     public function validateCity();
 
     public function getDirection($degrees);

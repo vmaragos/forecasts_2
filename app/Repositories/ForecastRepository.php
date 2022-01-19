@@ -19,11 +19,6 @@ class ForecastRepository implements ForecastRepositoryInterface
         $this->forecast = $forecast;
     }
 
-    public function dump()
-    {
-        ddd('hello world! repository works!');
-    }
-
     public function validateCity()
     {
         request()->validate([
