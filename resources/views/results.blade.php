@@ -2,52 +2,29 @@
 
 
 @section('head')
-<title>{{$results["name"]}} - Current Weather</title>
+<title>{{$results->name}} - Current Weather</title>
 <script type="text/javascript" src="{{asset('js/index.js')}}"></script>
-
-<script type="text/javascript">
-            $(document).ready(function() {
-            $('.section-1').cycle({
-                fx: 'fade', // choose your transition type, ex: fade, scrollUp, shuffle, etc...
-                delay:  0000,
-                sync: true
-            });
-        });
-        </script>
-    </head>
 @endsection
 
 @section('page-header')
-<h1>{{$results["name"]}} - Current Weather</h1>
-@endsection
-
-@section('background_image_cycle')
-
-<div class="section section-1">
-    <img src="{{asset('images/luca-bravo-hFzIoD0F_i8-unsplash.jpg')}}" alt="" style="display: none; z-index: 12; opacity: 0;">
-    <img src="{{asset('images/sebastian-unrau-sp-p7uuT0tw-unsplash.jpg')}}" alt="" style="display: none; z-index: 12; opacity: 0;">
-    <img src="{{asset('images/michael-benz--IZ2sgQKIhM-unsplash.jpg')}}" alt="" style="display: none; z-index: 12; opacity: 0;">
-    <img src="{{asset('images/jordan-ZAOiPdKfXWA-unsplash.jpg')}}" alt="" style="display: none; z-index: 12; opacity: 0;">
-    <img src="{{asset('images/kenniku-tolato-a7_RTPWJDhQ-unsplash.jpg')}}" alt="" style="display: none; z-index: 12; opacity: 0;">
-    <img src="{{asset('images/joan-oger-ZK_v7Uc7sqQ-unsplash.jpg')}}" alt="" style="display: none; z-index: 12; opacity: 0;"> 
-</div>         
+<h1>{{$results->name}} - Current Weather</h1>
 @endsection
 
 @section('middle')
 <div id="middle-results">
-    @includeIf('icons.description.' . $results['weather']['0']['icon'])
+    @includeIf('icons.description.' . $results->weather['0']->icon)
     <ul id="result-details">
         <li>
             <span id="result-title">City:</span>
-            <img  id="result-icon" src="{{asset('images/icons/countries/'.$results['sys']['country'].'.svg')}}" alt="">
-            <span id="result-value">{{$results["name"]}}, {{$results["sys"]["country"]}} </span>
+            <img  id="result-icon" src="{{asset('images/icons/countries/'.$results->sys->country.'.svg')}}" alt="">
+            <span id="result-value">{{$results->name}}, {{$results->sys->country}} </span>
         </li>
         <li>
             <span id="result-title">Description:</span>
             
-            @includeIf('icons.description.' . $results['weather']['0']['icon'])
+            @includeIf('icons.description.' . $results->weather['0']->icon)
             
-            <span id="result-value">{{ucwords($results["weather"]["0"]["description"])}}</span>
+            <span id="result-value">{{ucwords($results->weather['0']->description)}}</span>
         </li>
         <li>
             <span id="result-title">Temprature:</span>
@@ -73,7 +50,7 @@
                 @break
 
             @endswitch
-            <span id="result-value">{{$temprature_celsius}} °C</span>
+            <span id="result-value">{{mb_strimwidth($temprature_celsius, 0, 4)}} °C</span>
         </li>
         <li>
             <span id="result-title">Feels Like:</span>
@@ -99,17 +76,17 @@
                 @break
 
             @endswitch
-            <span id="result-value">{{$feels_like_celsius}} °C</span>
+            <span id="result-value">{{mb_strimwidth($feels_like_celsius, 0, 4)}} °C</span>
         </li>
         <li>
             <span id="result-title">Humidity:</span>
             @includeIf('icons.humidity.humidity_default')
-            <span id="result-value">{{$results["main"]["humidity"]}}%</span>
+            <span id="result-value">{{$results->main->humidity}}%</span>
         </li>
         <li>
             <span id="result-title">Wind:</span>
             @includeIf('icons.wind.wind_default')
-            <span id="result-value">{{$results["wind"]["speed"]}} m/s {{ucwords($string_direction)}}</span>
+            <span id="result-value">{{$results->wind->speed}} m/s {{ucwords($string_direction)}}</span>
         </li>
     </ul>
 </div>

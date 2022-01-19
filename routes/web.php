@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ForecastsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,7 @@ Route::get('/', function () {
 Route::get('/search', function () {
     return view('search');
 });
+
+Route::get('popular', [ForecastsController::class, 'index'])->name('forecasts.index');
+
+Route::get('/search/results', [ForecastsController::class, 'show'])->name('forecasts.show');
