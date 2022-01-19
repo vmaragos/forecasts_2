@@ -41,9 +41,6 @@
         <div id="page-header">
             @yield('page-header')
         </div>
-        <!-- <div id="middle-box" style="top: 90vh">
-            <h1 style="text-align: center;">Your IP is {{Request::ip()}}</h1>
-        </div> -->
         @yield('middle')
     </body>
 </html>
