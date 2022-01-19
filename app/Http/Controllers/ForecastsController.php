@@ -20,7 +20,7 @@ class ForecastsController extends Controller
     {
         $this->forecastRepository->validateCity();
 
-        $forecast = $this->forecastRepository->getDataFromAPI();
+        $forecast = $this->forecastRepository->getCityResults();
 
         return view('results', 
         [
@@ -29,12 +29,16 @@ class ForecastsController extends Controller
             'icon_name' => $forecast->icon_name,
             'temprature_celsius' => $forecast->temprature_celsius,
             'feels_like_celsius' => $forecast->feels_like_celsius,
-
         ]);
     }
-    
+
     public function index()
     {
-        return "hello world! this is the index method.";
+        $forecasts = $this->forecastRepository->getCitiesResults(2643743, 2950159, 2968815, 3169070); // London, Berlin, Paris, Rome
+        
+        return view('popular', 
+        [
+            'forecasts' => $forecasts,
+        ]);
     }
 }

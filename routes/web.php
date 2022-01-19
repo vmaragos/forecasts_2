@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/', function () {
     return redirect('/search');
@@ -26,6 +26,6 @@ Route::get('/search', function () {
     return view('search');
 });
 
-Route::get('popular', [ForecastsController::class, 'index'])->name('forecasts.index');
+Route::get('/popular', [ForecastsController::class, 'index'])->name('forecasts.index');
 
 Route::get('/search/results', [ForecastsController::class, 'show'])->name('forecasts.show');

@@ -13,7 +13,8 @@ interface ForecastRepositoryInterface
 
     public function getDirection($degrees);
 
-    public function getDataFromAPI();
-
+    public function getCityResults();
+    
+    public function getCitiesResults($city0_id, $city1_id, $city2_id, $city3_id);
 }
 
