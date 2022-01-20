@@ -77,8 +77,7 @@ class ForecastRepository implements ForecastRepositoryInterface
         $city_name = htmlspecialchars(request('city_name')); //can use spaces
         $results = Http::get('api.openweathermap.org/data/2.5/weather?q='.$city_name.','.'&appid='.$api_key)->object();
 
-        if($results->cod == 200)
-        {   
+        try{
             $forecast = new Forecast;
 
             $forecast = $results; // include the original api response into the new object
@@ -89,13 +88,13 @@ class ForecastRepository implements ForecastRepositoryInterface
             $forecast->temprature_celsius = $forecast->temprature_kelvin -272.15;
             $forecast->feels_like_kelvin = $results->main->feels_like;
             $forecast->feels_like_celsius = $forecast->feels_like_kelvin -272.15; 
-
+            
             return $forecast;
         }
-        //if the results are not okay, it returns the "search" page with an error message appended
-        else
-        {
-            return redirect('/search')->with('search_error', "City $city_name not found or data not available.");
+        catch(\Exception $exception){
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'api_response' => 'Failed to retrieve data for that City. Please type a different one.' 
+            ]);
         }
     }
 
